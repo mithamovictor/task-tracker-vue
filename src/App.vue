@@ -5,74 +5,30 @@
       title="Task Tracker"
       :showAddTask="showAddTask"
     />
-    <div v-show="showAddTask">
-      <AddTask @add-task="addTask" />
-    </div>
-    <TasksComponent
-      @toggle-reminder="toggleReminder"
-      @delete-task="deleteTask"
-      :tasks="tasks"
-    />
+    <router-view :showAddTask="showAddTask"></router-view>
+    <FooterComponent />
   </div>
 </template>
 
 <script>
 import HeaderComponent from "./components/Header.vue";
-import TasksComponent from "./components/Tasks.vue";
-import AddTask from "./components/AddTask.vue";
+import FooterComponent from "./components/Footer.vue";
 
 export default {
   name: "App",
   components: {
     HeaderComponent,
-    TasksComponent,
-    AddTask,
+    FooterComponent,
   },
   data() {
     return {
-      tasks: [],
       showAddTask: false,
     };
   },
   methods: {
     toggleAddTask() {
-      return (this.showAddTask = !this.showAddTask);
+      this.showAddTask = !this.showAddTask;
     },
-    addTask(task) {
-      return (this.tasks = [...this.tasks, task]);
-    },
-    deleteTask(id) {
-      if (confirm("Are you sure?"))
-        return (this.tasks = this.tasks?.filter((x) => x.id != id));
-      return;
-    },
-    toggleReminder(id) {
-      return (this.tasks = this.tasks.map((x) =>
-        x.id === id ? { ...x, reminder: !x.reminder } : x
-      ));
-    },
-  },
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: "Doctors Appointment",
-        day: "March 5th at 2:30pm",
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: "Meeting with boss",
-        day: "March 6th at 1:30pm",
-        reminder: true,
-      },
-      {
-        id: 3,
-        text: "Food shopping",
-        day: "March 7th at 2:00pm",
-        reminder: false,
-      },
-    ];
   },
 };
 </script>
