@@ -18,6 +18,12 @@ npm run backend
 npm run serve
 ```
 
+### Run Server and Backend together in one command for developent
+
+```
+npm start
+```
+
 ### Compiles and minifies for production
 
 ```
